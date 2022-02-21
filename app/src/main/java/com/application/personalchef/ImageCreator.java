@@ -97,12 +97,6 @@ public class ImageCreator extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     Uri selectedImage = imageReturnedIntent.getData();
                     Log.d("LOL", imageReturnedIntent.getData().toString());
-                    //String imageURI = new String(imageReturnedIntent.getData().toString());
-                    //imageURI = imageURI.replace("%2F", "/");
-                    //imageURI = imageURI.replace("raw//", "raw/");
-
-                    //Log.d("LOL", imageURI);
-                    //imageView.setImageURI(Uri.parse(imageURI));
                     ImageView imageView = (ImageView) findViewById(R.id.imageView2);
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);

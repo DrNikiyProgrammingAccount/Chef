@@ -33,20 +33,9 @@ public class Menu extends AppCompatActivity {
         File dir = new File(Environment.getExternalStorageDirectory().toString() + "/chefdir/recipes");
         File[] list = dir.listFiles();
 
-        //Log.d("DIR", String.valueOf(list.length));
 
         for (int i = 0; i < list.length; i++){
 
-            //Log.d("cyc", String.valueOf(i));
-            //LinearLayout ll = new LinearLayout(context);
-            //ll.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-            //ll.setBackgroundResource(R.drawable.layout_bg);
-            //ll.setOrientation(LinearLayout.VERTICAL);
-            //ImageView image = new ImageView(context);
-            //Log.d("cyc", String.valueOf(Uri.fromFile(list[i])));
-            //image.setImageURI(Uri.fromFile(list[i]));
-            //ll.addView(image);
-            //mainLayout.addView(ll);
 
 
             LinearLayout ll = new LinearLayout(this);

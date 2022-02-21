@@ -1,6 +1,7 @@
 package com.application.personalchef;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
@@ -34,6 +36,11 @@ public class RecipeViewer extends AppCompatActivity {
     private static final int Print_Words = 100;
 
     private TextView enteredText;
+    List<String> steps = new ArrayList<String>();
+
+    int time;
+
+    int stepper = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +51,12 @@ public class RecipeViewer extends AppCompatActivity {
         String data = getIntent().getExtras().getString("Data");
         Log.d("GG", data);
 
+
         TextView text = (TextView) findViewById(R.id.textView3);
         TextView text2 = (TextView) findViewById(R.id.textView2);
         ImageView image = (ImageView) findViewById(R.id.imageforpic);
         Button next = (Button) findViewById(R.id.next);
+        Button leave = (Button) findViewById(R.id.leave);
 
         ttsManager = new TTSManager();
         ttsManager.init(this);
@@ -62,40 +71,15 @@ public class RecipeViewer extends AppCompatActivity {
             String line;
             try {
                 int iterator = 1;
-                int time = 0;
                 while ((line = bufferedReader.readLine()) != null){
-                    Log.d("GG", line);
+                    steps.add(line);
+                    Log.d("GG", String.valueOf(steps));
                     stringBuilder.append(line);
-                    if (iterator % 4 == 1){
-                        text.setText(line);
-                        Log.d("what", line);
-                    }
-                    if (iterator % 4 == 2){
-                        time = Integer.parseInt(line);
-                        Log.d("what", line);
-                    }
-                    if (iterator % 4 == 3){
-                        text2.setText(line);
-                        Log.d("what", line);
-                    }
-                    if (iterator % 4 == 0){
-                        image.setImageURI(Uri.fromFile(new File(line)));
-                        Log.d("what", line);
-                        String ttsText = String.valueOf(text.getText());
-                        Log.d("what", ttsText);
-                        //ttsManager.initQueue(ttsText);
-                        //textToSpeech.speak("hi",TextToSpeech.QUEUE_FLUSH,null);
-                        int finalTime = time;
-                        //SystemClock.sleep(1000 * finalTime);
 
-
-                    }
-                    //text.setText(line);
                     iterator = iterator + 1;
 
                 }
-                //text.setText(stringBuilder);
-                //text2.setText(stringBuilder);
+
                 Log.d("GG", String.valueOf(stringBuilder));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -108,30 +92,60 @@ public class RecipeViewer extends AppCompatActivity {
 
 
 
+    text.setText(steps.get(0));
+    time = Integer.parseInt(steps.get(1));
+    text2.setText(steps.get(2));
+    image.setImageURI(Uri.fromFile(new File(steps.get(3))));
 
 
-
-
-
-
-    }
-
-
-
-
-/*    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        //Проверяем успешность получения обратного ответа:
-        if (requestCode==Print_Words && resultCode==RESULT_OK) {
-            //Как результат получаем строковый массив слов, похожих на произнесенное:
-            ArrayList<String> result=data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            //и отображаем их в элементе TextView:
-            enteredText.setText(result.toString());
+        if (steps.size() == stepper + 0){
+            text.setText("Финиш!");
+            text2.setText("");
+            image.setImageResource(R.drawable.backgr);
         }
-        super.onActivityResult(requestCode, resultCode, data);
+    next.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v)
+        {
+            if (steps.size() == stepper - 4){
+                finish();
+
+            }
+            else if (steps.size() == stepper + 0){
+                text.setText("");
+                text2.setText("");
+                next.setText("Финиш!");
+                image.setImageResource(R.drawable.finally_pic);
+
+            }
+            else {
+                text.setText(steps.get(0 + stepper));
+                time = Integer.parseInt(steps.get(1 + stepper));
+                text2.setText(steps.get(2 + stepper));
+                image.setImageURI(Uri.fromFile(new File(steps.get(3 + stepper))));
+                String textic = (String) text.getText();
+                ttsManager.initQueue(textic);
+
+            }
+            stepper = stepper + 4;
+        }
+    });
+
+        leave.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
+
+
+
+
+
     }
 
-*/
+
+
+
+
 
 }

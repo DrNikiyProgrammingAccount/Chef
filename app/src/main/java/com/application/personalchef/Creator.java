@@ -158,12 +158,6 @@ public class Creator extends AppCompatActivity {
                     TextView text4 = (TextView) horiz.getChildAt(0);
                     String strForWrite4 = String.valueOf(text4.getText() + "\n");
 
-                    //Log.d("childl", strForWrite1);
-                    //Log.d("childl", strForWrite2);
-                    //Log.d("childl", strForWrite3);
-                    //Log.d("childl", strForWrite4);
-                    //Log.d("childl", String.valueOf(text1.getText()));
-                    //Log.d("child", String.valueOf(mainLayout.getChildCount()));
 
                     try {
                         FileOutputStream outputStream = new FileOutputStream(myFile, true);

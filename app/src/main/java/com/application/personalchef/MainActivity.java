@@ -33,16 +33,12 @@ public class MainActivity extends AppCompatActivity {
         Button imagecreator = (Button) findViewById(R.id.image_creator);
         isStoragePermissionGranted();
         File Directory = new File(Environment.getExternalStorageDirectory().toString() + "/chefdir");
-// have the object build the directory structure, if needed.
         Directory.mkdirs();
         File Directory2 = new File(Environment.getExternalStorageDirectory().toString() + "/chefdir/images");
-// have the object build the directory structure, if needed.
         Directory2.mkdirs();
         File Directory3 = new File(Environment.getExternalStorageDirectory().toString() + "/chefdir/recipes");
-// have the object build the directory structure, if needed.
         Directory3.mkdirs();
         File Directory4 = new File(Environment.getExternalStorageDirectory().toString() + "/chefdir/cache");
-// have the object build the directory structure, if needed.
         Directory4.mkdirs();
 
 
